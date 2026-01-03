@@ -1,9 +1,12 @@
 extends CharacterBody3D
 @export var camera: Camera3D
+@onready var camera_sm := $CameraStateMachine
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+func _unhandled_input(event: InputEvent) -> void:
+	camera_sm.handle_input(event)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://xby1btwfjrve"]
+[gd_scene load_steps=10 format=3 uid="uid://xby1btwfjrve"]
 
 [ext_resource type="Script" uid="uid://ddas8siya183g" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://blcwgx6jxhxgb" path="res://camera_state_machine.gd" id="2_2hs0m"]
 [ext_resource type="Script" uid="uid://b2j2fntcaoqrv" path="res://camera_spring_arm.gd" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://dd3twak6f3odm" path="res://third_person.gd" id="3_1jxqw"]
 [ext_resource type="Script" uid="uid://cx6o23dv5vl6d" path="res://camera_follow.gd" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://b3t6xhlvm14yg" path="res://first_person.gd" id="4_dw050"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
 
@@ -15,6 +18,15 @@ points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4
 collision_layer = 2
 script = ExtResource("1_4flbx")
 camera = NodePath("SpringArmPivot/Camera3D")
+
+[node name="CameraStateMachine" type="Node" parent="."]
+script = ExtResource("2_2hs0m")
+
+[node name="ThirdPerson" type="Node" parent="CameraStateMachine"]
+script = ExtResource("3_1jxqw")
+
+[node name="FirstPerson" type="Node" parent="CameraStateMachine"]
+script = ExtResource("4_dw050")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_sh265")
