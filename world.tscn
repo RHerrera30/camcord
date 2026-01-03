@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3lpl0tm78a5h"]
+
+[ext_resource type="PackedScene" uid="uid://xby1btwfjrve" path="res://player.tscn" id="1_f3sb7"]
+
+[sub_resource type="Environment" id="Environment_f3sb7"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_fj7yv"]
+
+[node name="World" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6488639, 0.7609045, 0, -0.7609045, 0.6488639, 0, 8.166828, 6)
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f3sb7")
+camera_attributes = SubResource("CameraAttributesPractical_fj7yv")
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.544388, 0.36214066, -1.2345686)
+use_collision = true
+size = Vector3(40, 0.01, 40)
+
+[node name="player" parent="." instance=ExtResource("1_f3sb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5674725, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9331331, -3)
+use_collision = true
+size = Vector3(8, 3, 1)
