@@ -5,11 +5,20 @@ const ZOOM_OUT := 7.0
 const DEFAULT_DISTANCE := 6.0
 
 var spring_arm: SpringArm3D
+var camera: Camera3D
 
-func enter(_spring_arm: SpringArm3D, mesh: Node3D):
-	spring_arm = _spring_arm
+func enter(_camera_rig, _mesh: Node3D):
+	super.enter(_camera_rig, _mesh)
+	
+	spring_arm = camera_rig.third_person_spring_arm
+	camera = camera_rig.third_person_camera
+	
+	camera.current = true
 	spring_arm.spring_length = DEFAULT_DISTANCE
 	mesh.visible = true
+
+func exit():
+	camera.current = false
 
 func handle_input(event: InputEvent, machine):
 	if event.is_action_pressed("wheel_up"):

@@ -1,6 +1,6 @@
 extends Node
 
-@onready var spring_arm := $"../SpringArmPivot/SpringArm3D"
+@onready var camera_rig := $"../CameraRig"
 @onready var player_mesh := $"../MeshInstance3D"
 
 var current_state: CameraState
@@ -14,17 +14,14 @@ func change_state(new_state: CameraState):
 		current_state.exit()
 	
 	current_state = new_state
-	current_state.enter(spring_arm, player_mesh)
+	current_state.enter(camera_rig, player_mesh)
 	
 func handle_input(event: InputEvent):
 	if current_state:
 		current_state.handle_input(event, self)
 		
-func isInFirstPerson():
-	if current_state == $FirstPerson:
-		return true
-	else:
-		return false
+func isInFirstPerson() -> bool:
+	return current_state == $FirstPerson
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
