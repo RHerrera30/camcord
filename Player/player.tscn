@@ -44,8 +44,9 @@ spring_length = 6.0
 
 [node name="SpringPosition" type="Node3D" parent="SpringArmPivot/SpringArm3D"]
 
-[node name="Camera3D" type="Camera3D" parent="SpringArmPivot" node_paths=PackedStringArray("spring_arm")]
+[node name="Camera3D" type="Camera3D" parent="SpringArmPivot" node_paths=PackedStringArray("camera_state", "spring_arm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 3)
 script = ExtResource("3_i3pqv")
+camera_state = NodePath("../../CameraStateMachine")
 spring_arm = NodePath("../SpringArm3D/SpringPosition")
 lerp_power = 6.0

@@ -19,6 +19,12 @@ func change_state(new_state: CameraState):
 func handle_input(event: InputEvent):
 	if current_state:
 		current_state.handle_input(event, self)
+		
+func isInFirstPerson():
+	if current_state == $FirstPerson:
+		return true
+	else:
+		return false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:

@@ -1,6 +1,6 @@
 extends Camera3D
 
-#@export var camera_state: Node
+@export var camera_state: Node
 
 @export var spring_arm: Node3D
 @export var lerp_power: float = 1.0
@@ -17,7 +17,8 @@ func _ready():
 		screenShotCount += 1
 
 func _input(event):
-	if event.is_action_pressed("screenshot"):
+	if event.is_action_pressed("screenshot") and \
+	camera_state.isInFirstPerson():
 		screenshot()
 
 func screenshot():
