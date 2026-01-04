@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://xby1btwfjrve"]
+[gd_scene load_steps=12 format=3 uid="uid://xby1btwfjrve"]
 
 [ext_resource type="Script" uid="uid://ddas8siya183g" path="res://Scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://blcwgx6jxhxgb" path="res://Scripts/PlayerCamera/camera_state_machine.gd" id="2_2hs0m"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dd3twak6f3odm" path="res://Scripts/PlayerCamera/third_person.gd" id="3_1jxqw"]
 [ext_resource type="Script" uid="uid://cx6o23dv5vl6d" path="res://Scripts/PlayerCamera/camera_follow.gd" id="3_i3pqv"]
 [ext_resource type="Script" uid="uid://b3t6xhlvm14yg" path="res://Scripts/PlayerCamera/first_person.gd" id="4_dw050"]
+[ext_resource type="Script" uid="uid://chpd7s3100pth" path="res://Player/first_person_camera.gd" id="5_od3ui"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i3pqv"]
 
@@ -40,8 +41,10 @@ camera_state = NodePath("../../../CameraStateMachine")
 spring_arm = NodePath("../SpringArm3D/SpringPosition")
 lerp_power = 6.0
 
-[node name="FirstPersonCamera" type="Camera3D" parent="CameraRig"]
+[node name="FirstPersonCamera" type="Camera3D" parent="CameraRig" node_paths=PackedStringArray("camera_state")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
+script = ExtResource("5_od3ui")
+camera_state = NodePath("../../CameraStateMachine")
 
 [node name="CameraStateMachine" type="Node" parent="."]
 script = ExtResource("2_2hs0m")
