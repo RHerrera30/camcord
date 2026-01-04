@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3lpl0tm78a5h"]
+[gd_scene load_steps=7 format=3 uid="uid://c3lpl0tm78a5h"]
 
 [ext_resource type="PackedScene" uid="uid://xby1btwfjrve" path="res://Player/player.tscn" id="1_f3sb7"]
+[ext_resource type="Material" uid="uid://d34l8ael31osl" path="res://Materials/YellowMaterial.tres" id="2_aqk2v"]
+[ext_resource type="Material" uid="uid://c1apwto2cnp82" path="res://Materials/BlueMaterial.tres" id="2_fj7yv"]
+[ext_resource type="Material" uid="uid://djm70757gwtef" path="res://Materials/RedMaterial.tres" id="3_036b0"]
 
 [sub_resource type="Environment" id="Environment_f3sb7"]
 
@@ -24,7 +27,28 @@ size = Vector3(40, 0.01, 40)
 [node name="player" parent="." instance=ExtResource("1_f3sb7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5674725, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9331331, -3)
+[node name="Wall" type="CSGBox3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9331331, -10.140902)
 use_collision = true
 size = Vector3(8, 3, 1)
+
+[node name="Table" type="CSGBox3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 5, 11.706498, 1, 2.4694822)
+use_collision = true
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Box" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0.8214877, 0, -0.57022625, 0, 1, 0, 0.57022625, 0, 0.8214877, 11.892863, 2, 2.7233977)
+material_override = ExtResource("2_aqk2v")
+use_collision = true
+
+[node name="Ball" type="CSGSphere3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5887, 2, 4.190713)
+material_override = ExtResource("3_036b0")
+use_collision = true
+
+[node name="Can" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.964558, 2, 1.0192823)
+material_override = ExtResource("2_fj7yv")
+use_collision = true
