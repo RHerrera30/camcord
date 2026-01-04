@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://xby1btwfjrve"]
 
-[ext_resource type="Script" uid="uid://ddas8siya183g" path="res://player.gd" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://blcwgx6jxhxgb" path="res://camera_state_machine.gd" id="2_2hs0m"]
-[ext_resource type="Script" uid="uid://b2j2fntcaoqrv" path="res://camera_spring_arm.gd" id="2_onrkg"]
-[ext_resource type="Script" uid="uid://dd3twak6f3odm" path="res://third_person.gd" id="3_1jxqw"]
-[ext_resource type="Script" uid="uid://cx6o23dv5vl6d" path="res://camera_follow.gd" id="3_i3pqv"]
-[ext_resource type="Script" uid="uid://b3t6xhlvm14yg" path="res://first_person.gd" id="4_dw050"]
+[ext_resource type="Script" uid="uid://ddas8siya183g" path="res://Scripts/player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://blcwgx6jxhxgb" path="res://Scripts/PlayerCamera/camera_state_machine.gd" id="2_2hs0m"]
+[ext_resource type="Script" uid="uid://b2j2fntcaoqrv" path="res://Scripts/PlayerCamera/camera_spring_arm.gd" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://dd3twak6f3odm" path="res://Scripts/PlayerCamera/third_person.gd" id="3_1jxqw"]
+[ext_resource type="Script" uid="uid://cx6o23dv5vl6d" path="res://Scripts/PlayerCamera/camera_follow.gd" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://b3t6xhlvm14yg" path="res://Scripts/PlayerCamera/first_person.gd" id="4_dw050"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
 
@@ -35,10 +35,10 @@ mesh = SubResource("CapsuleMesh_sh265")
 shape = SubResource("ConvexPolygonShape3D_4flbx")
 
 [node name="SpringArmPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42017412, 0)
 script = ExtResource("2_onrkg")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SpringArmPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 shape = SubResource("SphereShape3D_i3pqv")
 spring_length = 6.0
 
