@@ -41,9 +41,9 @@ spring_arm = NodePath("../SpringArm3D/SpringPosition")
 lerp_power = 6.0
 
 [node name="FirstPersonPivot" type="Node3D" parent="CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
 
 [node name="FirstPersonCamera" type="Camera3D" parent="CameraRig/FirstPersonPivot" node_paths=PackedStringArray("camera_state")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
 script = ExtResource("5_od3ui")
 camera_state = NodePath("../../../CameraStateMachine")
 
