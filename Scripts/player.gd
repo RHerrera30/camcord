@@ -56,9 +56,20 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var basis := global_transform.basis
 
-	var direction = (basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction := Vector3(input_dir.x, 0.0, input_dir.y)
+
+	if not camera_state_machine.isInFirstPerson():
+		var cam_yaw = camera_state_machine.camera_rig.get_third_person_yaw()
+		direction = direction.rotated(Vector3.UP, cam_yaw)
+	else:
+		direction = global_transform.basis * direction
+
+	direction = direction.normalized()
+	
+	if not camera_state_machine.isInFirstPerson() and direction.length() > 0.1:
+		var target_yaw = atan2(direction.x, direction.z)
+		rotation.y = lerp_angle(rotation.y, target_yaw, delta * 10.0)
 
 	if is_on_floor():
 		if direction:
