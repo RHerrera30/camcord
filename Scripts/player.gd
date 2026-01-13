@@ -30,18 +30,24 @@ func _unhandled_input(event):
 	# Always forward input to camera state machine FIRST
 	camera_state_machine.handle_input(event)
 
-	# Only do mouse-look when in first person
-	if not camera_state_machine.isInFirstPerson():
+	if event is not InputEventMouseMotion:
 		return
 
-	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * SENSITIVITY)
-		camera.rotate_x(-event.relative.y * SENSITIVITY)
+	var mouse_x = event.relative.x * SENSITIVITY
+	var mouse_y = event.relative.y * SENSITIVITY
+
+	if camera_state_machine.isInFirstPerson():
+		# FIRST PERSON
+		head.rotate_y(-mouse_x)
+		camera.rotate_x(-mouse_y)
 		camera.rotation.x = clamp(
 			camera.rotation.x,
 			deg_to_rad(-40),
 			deg_to_rad(60)
 		)
+	else:
+		# THIRD PERSON
+		camera_state_machine.camera_rig.rotate_yaw(-mouse_x)
 
 #func _unhandled_input(event: InputEvent) -> void:
 	#camera_sm.handle_input(event)
@@ -59,11 +65,13 @@ func _physics_process(delta):
 
 	var direction := Vector3(input_dir.x, 0.0, input_dir.y)
 
-	if not camera_state_machine.isInFirstPerson():
+	if camera_state_machine.isInFirstPerson():
+		# FIRST PERSON
+		direction = head.global_transform.basis * direction
+	else:
+		# THIRD PERSON
 		var cam_yaw = camera_state_machine.camera_rig.get_third_person_yaw()
 		direction = direction.rotated(Vector3.UP, cam_yaw)
-	else:
-		direction = global_transform.basis * direction
 
 	direction = direction.normalized()
 	
@@ -83,9 +91,11 @@ func _physics_process(delta):
 		velocity.z = lerp(velocity.z, direction.z * SPEED, delta * 3.0)
 
 	if camera_state_machine.isInFirstPerson():
+		#FIRST PERSON (HEAD BOB)
 		t_bob += delta * min(velocity.length(), SPRINT_SPEED) * float(is_on_floor())
 		camera.transform.origin = _headbob(t_bob)
 	else:
+		#THIRD PERSON
 		t_bob = 0.0
 		camera.transform.origin = Vector3.ZERO
 

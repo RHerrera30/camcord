@@ -20,23 +20,26 @@ points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4
 collision_layer = 2
 script = ExtResource("1_4flbx")
 
-[node name="CameraRig" type="Node3D" parent="."]
+[node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("2_vtle1")
+target = NodePath("..")
 
-[node name="ThirdPersonSpringArmPivot" type="Node3D" parent="CameraRig"]
+[node name="ThirdPersonYawPivot" type="Node3D" parent="CameraRig"]
+
+[node name="ThirdPersonSpringArmPivot" type="Node3D" parent="CameraRig/ThirdPersonYawPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42017412, 0)
 script = ExtResource("2_onrkg")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig/ThirdPersonSpringArmPivot"]
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig/ThirdPersonYawPivot/ThirdPersonSpringArmPivot"]
 shape = SubResource("SphereShape3D_i3pqv")
 spring_length = 6.0
 
-[node name="SpringPosition" type="Node3D" parent="CameraRig/ThirdPersonSpringArmPivot/SpringArm3D"]
+[node name="SpringPosition" type="Node3D" parent="CameraRig/ThirdPersonYawPivot/ThirdPersonSpringArmPivot/SpringArm3D"]
 
-[node name="ThirdPersonCamera" type="Camera3D" parent="CameraRig/ThirdPersonSpringArmPivot" node_paths=PackedStringArray("camera_state", "spring_arm")]
+[node name="ThirdPersonCamera" type="Camera3D" parent="CameraRig/ThirdPersonYawPivot/ThirdPersonSpringArmPivot" node_paths=PackedStringArray("camera_state", "spring_arm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 3)
 script = ExtResource("3_i3pqv")
-camera_state = NodePath("../../../CameraStateMachine")
+camera_state = NodePath("../../../../CameraStateMachine")
 spring_arm = NodePath("../SpringArm3D/SpringPosition")
 lerp_power = 6.0
 
