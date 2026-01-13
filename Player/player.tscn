@@ -48,6 +48,7 @@ lerp_power = 6.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
 
 [node name="FirstPersonCamera" type="Camera3D" parent="CameraRig/FirstPersonPivot" node_paths=PackedStringArray("camera_state")]
+cull_mask = 1048571
 script = ExtResource("5_od3ui")
 camera_state = NodePath("../../../CameraStateMachine")
 
@@ -65,3 +66,8 @@ mesh = SubResource("CapsuleMesh_sh265")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_4flbx")
+
+[node name="Nose" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0.56878257)
+layers = 4
+size = Vector3(0.1, 0.1, 0.2)

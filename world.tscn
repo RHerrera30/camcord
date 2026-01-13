@@ -40,6 +40,7 @@ use_collision = true
 
 [node name="Box" type="CSGBox3D" parent="Props"]
 transform = Transform3D(0.8214877, 0, -0.57022625, 0, 1, 0, 0.57022625, 0, 0.8214877, 11.892863, 2, 2.7233977)
+layers = 4
 material_override = ExtResource("2_aqk2v")
 use_collision = true
 
