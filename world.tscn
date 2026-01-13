@@ -45,10 +45,12 @@ use_collision = true
 
 [node name="Ball" type="CSGSphere3D" parent="Props"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5887, 2, 4.190713)
+layers = 2
 material_override = ExtResource("3_036b0")
 use_collision = true
 
 [node name="Can" type="CSGCylinder3D" parent="Props"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.964558, 2, 1.0192823)
+layers = 2
 material_override = ExtResource("2_fj7yv")
 use_collision = true
