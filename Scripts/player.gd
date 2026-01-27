@@ -63,17 +63,30 @@ func _physics_process(delta):
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
-	var direction := Vector3(input_dir.x, 0.0, input_dir.y)
+#	var direction := Vector3(input_dir.x, 0.0, input_dir.y)
 
-	if camera_state_machine.isInFirstPerson():
-		# FIRST PERSON
-		direction = head.global_transform.basis * direction
-	else:
-		# THIRD PERSON
-		var cam_yaw = camera_state_machine.camera_rig.get_third_person_yaw()
-		direction = direction.rotated(Vector3.UP, cam_yaw)
-
-	direction = direction.normalized()
+	#if camera_state_machine.isInFirstPerson():
+		## FIRST PERSON
+		#direction = head.global_transform.basis * direction
+	#else:
+		## THIRD PERSON
+		#var cam_yaw = camera_state_machine.camera_rig.get_third_person_yaw()
+		#direction = direction.rotated(Vector3.UP, cam_yaw)
+#
+	#direction = direction.normalized()
+	
+	var direction := Vector3.ZERO
+	if input_dir != Vector2.ZERO:
+		if camera_state_machine.isInFirstPerson():
+			#FIRST PERSON
+			direction = head.global_transform.basis * Vector3(input_dir.x, 0.0, input_dir.y)
+		else:
+		#THIRD PERSON
+			var cam = camera_state_machine.camera_rig.third_person_camera
+			direction = cam.global_transform.basis * Vector3(input_dir.x, 0.0, input_dir.y)
+			direction.y = 0.0
+	
+	direction = direction.normalized() if direction != Vector3.ZERO else Vector3.ZERO
 	
 	if not camera_state_machine.isInFirstPerson() and direction.length() > 0.1:
 		var target_yaw = atan2(direction.x, direction.z)
@@ -113,3 +126,16 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
+	
+func camera_relative_direction(input_vec: Vector2, cam: Camera3D) -> Vector3:
+	var basis = cam.global_transform.basis
+	var cam_forward = -basis.z #camera forward
+	var cam_right = -basis.x #camera right
+	
+	cam_forward.y = 0.0
+	cam_right.y = 0.0
+	cam_forward = cam_forward.normalized()
+	cam_right = cam_right.normalized()
+	
+	return (cam_forward * -input_vec.y + cam_right * input_vec.x)
+	
