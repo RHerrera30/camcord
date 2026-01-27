@@ -126,16 +126,3 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
-	
-func camera_relative_direction(input_vec: Vector2, cam: Camera3D) -> Vector3:
-	var basis = cam.global_transform.basis
-	var cam_forward = -basis.z #camera forward
-	var cam_right = -basis.x #camera right
-	
-	cam_forward.y = 0.0
-	cam_right.y = 0.0
-	cam_forward = cam_forward.normalized()
-	cam_right = cam_right.normalized()
-	
-	return (cam_forward * -input_vec.y + cam_right * input_vec.x)
-	
